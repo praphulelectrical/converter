@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input {
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px;
+            cursor: pointer;
+        }
+    </style>
+    <title>Converter</title>
+</head>
+<body>
+
+    <h2>Temperature and Measurement Converter</h2>
+
+    <label for="temperature">Temperature:</label>
+    <input type="number" id="temperature" placeholder="Enter temperature" />
+    <select id="temperatureUnit">
+        <option value="celsius">Celsius</option>
+        <option value="fahrenheit">Fahrenheit</option>
+    </select>
+
+    <br>
+
+    <label for="measurement">Measurement:</label>
+    <input type="number" id="measurement" placeholder="Enter measurement" />
+    <select id="measurementUnit">
+        <option value="meter">Meter</option>
+        <option value="feet">Feet</option>
+    </select>
+
+    <br>
+
+    <button onclick="convert()">Convert</button>
+    <button onclick="clearFields()">Clear</button>
+
+    <h3>Results:</h3>
+    <p id="result"></p>
+
+    <script>
+        function convert() {
+            const temperatureValue = parseFloat(document.getElementById('temperature').value);
+            const temperatureUnit = document.getElementById('temperatureUnit').value;
+            const measurementValue = parseFloat(document.getElementById('measurement').value);
+            const measurementUnit = document.getElementById('measurementUnit').value;
+
+            let convertedTemperature, convertedMeasurement;
+
+            if (temperatureUnit === 'celsius') {
+                convertedTemperature = (temperatureValue * 9/5) + 32; // Celsius to Fahrenheit
+            } else {
+                convertedTemperature = (temperatureValue - 32) * 5/9; // Fahrenheit to Celsius
+            }
+
+            if (measurementUnit === 'meter') {
+                convertedMeasurement = measurementValue * 3.28084; // Meters to Feet
+            } else {
+                convertedMeasurement = measurementValue / 3.28084; // Feet to Meters
+            }
+
+            const result = `Temperature: ${convertedTemperature.toFixed(2)} °${temperatureUnit === 'celsius' ? 'F' : 'C'}<br>
+                             Measurement: ${convertedMeasurement.toFixed(2)} ${measurementUnit === 'meter' ? 'ft' : 'm'}`;
+
+            document.getElementById('result').innerHTML = result;
+        }
+
+        function clearFields() {
+            document.getElementById('temperature').value = '';
+            document.getElementById('measurement').value = '';
+            document.getElementById('result').innerHTML = '';
+        }
+    </script>
+
+</body>
+</html>
